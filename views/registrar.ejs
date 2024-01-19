@@ -1,0 +1,100 @@
+<div class="card card-primary col-md-10 offset-md-1">
+    <div class="card-header col-md-12">
+      <h3 class="card-title">Avila Entertainment XD</h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    <form method="POST" action="/guardar">
+      <div class="card-body">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Empleado</label>
+          <input type="text" name="nombre" placeholder="Introduzca el nombre del empleado" class="form-control" id="exampleInputEmail1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputEmail3">Fecha de contratación</label>
+            <input type="date" name="fechaContratacion" placeholder="Introduzca la fecha en que fue contratado el empleado" class="form-control" id="exampleInputEmail3" required max="<%= new Date().toISOString().split('T')[0] %>">
+          </div>
+
+          <label for="exampleInputEmail3">Salario</label>
+          <input type="number" name="salario" placeholder="Introduzca el salario" class="form-control" id="exampleInputEmail3" 
+             
+                 required min="1">
+          <div class="form-group">
+            <label for="exampleInputEmail3">Horas trabajadas</label>
+            <input type="number" name="horasTrabajadas" placeholder="Introduzca las horas trabajadass" class="form-control" id="exampleInputEmail3" required min="1">
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail3">Departamento</label>
+            <input type="text" name="departamento" placeholder="Introduzca el departamento donde se desenvuelve" class="form-control" id="exampleInputEmail3" required>
+          </div>
+
+      </div>
+
+      <div class="card-footer">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
+</div>
+<table class="table table-striped projects col-md-10 offset-md-1 mt-4 "  >
+    <thead >
+        <tr>
+            <th style="width: 1%">
+                #
+            </th>
+            <th style="width: 20%">
+  
+  Nombre         </th>
+            <th style="width: 20%">
+                Fecha De Contratacion
+            </th>
+            <th style="width: 20%">
+                Salario
+            </th>
+            <th style="width: 20%">
+               Horas Trabajadas
+            </th>
+            <th style="width: 20%">
+                Departamento
+            </th>
+  
+        </tr>
+    </thead>
+    <tbody>
+      <% resultados.forEach((nose)=>{%>
+        <tr>
+            <td>
+              <%=nose.id%>
+            </td>
+            <td>
+              <%=nose.nombre%>
+  
+            </td>
+            <td>
+              <% const fechaContratacion = new Date(nose.fechaContratacion); %>
+              <%= fechaContratacion.toLocaleDateString('es-ES', {day: 'numeric',month: 'numeric', year: 'numeric',   }) %>
+              
+  
+             </td>
+             <td>
+              <%=nose.salario%>
+  
+             </td>
+             <td>
+              <%=nose.horasTrabajadas%>
+  
+             </td>
+             <td>
+              <%=nose.departamento%>
+  
+             </td>
+  
+  
+        </tr>
+  
+  
+  <%})%>
+    </tbody>
+  </table>
+      

@@ -7,18 +7,26 @@ router.get('/',(req,res)=>{
 
 })
 router.get('/registrar', (req, res) => {
+    const buscar = req.query.buscar;
 
-       
-        // Si no hay un valor, muestra todos los empleados
-        conexion.query('SELECT * FROM empleados', (err, resultados) => {
+    if (buscar) {
+        conexion.query(`SELECT * FROM empleados WHERE departamento LIKE '%${buscar}%'`, (err, result) => {
             if (err) {
                 throw err;
             } else {
-                res.render('registrar', { resultados: resultados });
+                res.render('registrar', { result: result, buscar: buscar });
             }
-        });
-    }
-)
+        });
+    } else {
+        conexion.query('SELECT * FROM empleados', (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.render('registrar', { result: result });
+            }
+        });
+    }
+});
 const crud=require('./controllers/crud')
 router.post('/guardar',crud.save)
 

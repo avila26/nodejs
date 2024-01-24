@@ -8,7 +8,7 @@ app.use(expressLayouts)
 app.use(express.static(path.join(__dirname,'public')))
 
 app.set('view engine','ejs')
-app.set('port',process.env.PORT||3000)
+app.set('port',process.env.PORT||4000)
 
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())

@@ -46,6 +46,6 @@ exports.tareas = (req, res) => {
 
                 return res.redirect('/');
             });
-        }
-    });
+    }
+    });
 };

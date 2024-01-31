@@ -1,9 +1,8 @@
 <div class="card card-primary col-md-10 offset-md-1">
     <div class="card-header col-md-12">
-      <h3 class="card-title">Avila Entertainment XD</h3>
+      <h3 class="card-title">Añadir Empleado</h3>
     </div>
-    <!-- /.card-header -->
-    <!-- form start -->
+
     <form method="POST" action="/guardar">
       <div class="card-body">
         <div class="form-group">
@@ -43,9 +42,10 @@
             <th style="width: 1%">
                 #
             </th>
+
             <th style="width: 20%">
-  
-  Nombre         </th>
+                Nombre         
+            </th>
             <th style="width: 20%">
                 Fecha De Contratacion
             </th>
@@ -58,41 +58,36 @@
             <th style="width: 20%">
                 Departamento
             </th>
-  
+            <th style="width: 20%">
+              Pagar
+            </th>
         </tr>
     </thead>
     <tbody>
-      <% result.forEach((nose)=>{%>
+      <% result.forEach((empleado)=>{%>
         <tr>
+            <td> <%=empleado.id%> </td>
+
+            <td> <%=empleado.nombre%> </td>
+
             <td>
-              <%=nose.id%>
-            </td>
-            <td>
-              <%=nose.nombre%>
-  
-            </td>
-            <td>
-              <% const fechaContratacion = new Date(nose.fechaContratacion); %>
+              <% const fechaContratacion = new Date(empleado.fechaContratacion); %>
               <%= fechaContratacion.toLocaleDateString('es-ES', {day: 'numeric',month: 'numeric', year: 'numeric',   }) %>
-              
-  
              </td>
+            
+             <td> <%=empleado.salario%> </td>
+
+             <td> <%=empleado.horasTrabajadas%> </td>
+
              <td>
-              <%=nose.salario%>
-  
+              <%=empleado.departamento%>
              </td>
-             <td>
-              <%=nose.horasTrabajadas%>
-  
-             </td>
-             <td>
-              <%=nose.departamento%>
-  
-             </td>
-  
-  
+              <td>
+                <form method="post" action="/pagar/<%= empleado.id %>">
+                  <button type="submit">Pagar</button>
+              </form>
+              </td>
         </tr>
-  
   
   <%})%>
     </tbody>

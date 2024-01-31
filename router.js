@@ -38,6 +38,7 @@ router.get('/tareas',(req,res)=>{
     res.render('tareasemp',{result:result})
     })
 })
+
 router.post('/tareasguardar',crud.tareas)
 router.get('/total', (req, res) => {
     conexion.query( `
@@ -53,7 +54,6 @@ router.get('/total', (req, res) => {
       }
   
 
-  
       conexion.query(`
       SELECT SUM(salario) as totalSalariosGeneral
       FROM empleados
@@ -63,7 +63,6 @@ router.get('/total', (req, res) => {
           console.error('Error al consultar total general de salarios: ' + err.stack);
           return res.status(500).send('Error en el servidor');
         }
-  
         const totalSalariosGeneral = resultadoTotalSalarios[0].totalSalariosGeneral;
   
         res.render('total', { empleadosPorFecha, totalSalariosGeneral });
@@ -71,5 +70,24 @@ router.get('/total', (req, res) => {
     });
   });
   
+// Agrega una nueva ruta para actualizar el estado "pagado" de un empleado
+router.post('/pagar/:idEmpleado', (req, res) => {
+    const idEmpleado = req.params.idEmpleado;
 
-module.exports=router
+    // Actualiza el estado "pagado" a 1 para el empleado con el ID proporcionado
+    conexion.query(
+        'UPDATE empleados SET pagado = 1 WHERE id = ?',
+        [idEmpleado],
+        (err) => {
+            if (err) {
+                console.error('Error al actualizar el estado "pagado": ' + err.stack);
+                return res.status(500).send('Error en el servidor');
+            }
+
+            res.redirect('/registrar'); // Redirige a la página de totales después de la actualización
+        }
+    );
+});
+
+
+module.exports = router;
